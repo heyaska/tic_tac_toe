@@ -1,6 +1,91 @@
 import Image from 'next/image'
 
+
+const runBubbleSort = (sampleArr: any) => {
+  for (let i = 0; i < sampleArr.length; i++){
+    for (let j = 0; j < sampleArr.length-1-i; j++){
+      if (sampleArr[j] > sampleArr[j+1]) {
+        [sampleArr[j+1],sampleArr[j]]=[sampleArr[j],sampleArr[j+1]]
+      }
+    }  
+  }
+  return sampleArr;
+}
+
+const runMergeSort = (sampleArr: any) => {
+  if (sampleArr.length < 2) {
+    return sampleArr
+  }
+  let mid = Math.floor(sampleArr.length/2)
+  let leftArr = sampleArr.slice(0,mid)
+  let rightArr = sampleArr.slice(mid)
+  return Merge(runMergeSort(leftArr),runMergeSort(rightArr))
+}
+
+const Merge = (leftArr:any, rightArr:any) => {
+  let tempArr = []
+  while (leftArr.length && rightArr.length){
+    if (leftArr[0] <= rightArr[0]) {
+      tempArr.push(leftArr.shift())
+    } else {
+      tempArr.push(rightArr.shift())
+    }
+  }
+  return [...tempArr, ...leftArr, ...rightArr]
+}
+
+const runQuickSort = (sampleArr:any) => {
+  if (sampleArr.length <= 1){
+    return sampleArr
+  }
+  let leftArr = []
+  let rightArr = []
+  let temp =  sampleArr[sampleArr.length-1]
+
+  for (let i = 0; i < sampleArr.length - 1; i++){
+    if (sampleArr[i] <= temp ){
+      leftArr.push(sampleArr[i])
+    } else {
+      rightArr.push(sampleArr[i])
+    }
+  }
+  return [...runQuickSort(leftArr),temp,...runQuickSort(rightArr)]
+}
+
+const compareNumbers = (a,b) => {
+console.log(a,'a',b,'b')
+  return a - b;
+}
+
+
+
+const unSortedArray = () => {
+  return [3,5,6,2,7,8,19,120,119,2,3,4];
+}
+
 export default function Home() {
+  let sampleArr = unSortedArray();
+
+  // run bubble sort
+
+  // console.log(sampleArr, "before sort")
+  // runBubbleSort(sampleArr);
+  // console.log(sampleArr, "after sort")
+
+  // quick sort
+
+  // console.log(sampleArr, "before sort")
+  // console.log(runQuickSort(sampleArr), "after sort")
+
+  // merge sort 
+
+  // console.log(sampleArr, "before sort")
+  // console.log(runMergeSort(sampleArr), "after sort")
+
+  // built-in sort -> sort numbers 
+  console.log(sampleArr, "before sort")
+  console.log(sampleArr.sort(compareNumbers))
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
